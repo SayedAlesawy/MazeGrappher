@@ -7,21 +7,12 @@
 #define inB1 7 //IN3
 #define inB2 8 //IN4
 
-//TO DO :
-//1- Refactor Motor functions
-//2- Refactor dist-empty function
-//3- check main loop 
-
 const int trigLeft = A0;
 const int trigRight = A2;
 const int trigFront = A4;
 const int echoLeft = A1;
 const int echoRight = A3;
 const int echoFront = A5;
-
-//Motor pwm
-int pwmOutput1 = 150;
-int pwmOutput2 = 150;
 
 int distanceLeft = 0;
 int distanceRight = 0;
@@ -62,27 +53,27 @@ int getDistance(int code)
   return distance;
 }
 
-void left(void) {
-  analogWrite(enA, 180); //speed 0 - 255
-  analogWrite(enB, 180); //speed 0 - 255
+void left() {
+  analogWrite(enA, 180); 
+  analogWrite(enB, 180);
   digitalWrite(inA1, LOW);
   digitalWrite(inA2, HIGH);
   digitalWrite(inB1, HIGH);
   digitalWrite(inB2, LOW);
 }
 
-void right(void) {
-  analogWrite(enA, 180); //speed 0 - 255
-  analogWrite(enB, 180); //speed 0 - 255
+void right() {
+  analogWrite(enA, 180);
+  analogWrite(enB, 180);
   digitalWrite(inA1, HIGH);
   digitalWrite(inA2, LOW);
   digitalWrite(inB1, LOW);
   digitalWrite(inB2, HIGH);
 }
 
-void forward(void) {
-  analogWrite(enA, 254); //speed 0 - 255
-  analogWrite(enB, 255); //speed 0 - 255
+void forward() {
+  analogWrite(enA, 199);
+  analogWrite(enB, 200);
   digitalWrite(inA1, LOW);
   digitalWrite(inA2, HIGH);
   digitalWrite(inB1, LOW);
@@ -91,12 +82,6 @@ void forward(void) {
 /*
 void stoop()
 {
-  digitalWrite(brake2,HIGH);
-  digitalWrite(d1,LOW);
-  digitalWrite(d2,LOW);
-  digitalWrite(brake1,HIGH);
-  digitalWrite(op1,LOW);
-  digitalWrite(op2,LOW);
   analogWrite(enA, 0);
   analogWrite(enB, 0);
 }
@@ -110,24 +95,17 @@ void setup() {
     pinMode(inB1, OUTPUT);
     pinMode(inB2, OUTPUT);
    
-    // Set initial rotation direction
-    digitalWrite(inA1, LOW);
-    digitalWrite(inA2, HIGH);
-
-    digitalWrite(inB1, LOW);
-    digitalWrite(inB2, HIGH);
-    
     Serial.begin(9600);
 }
 
 char dist_empty()
 {
-  td=18;
-  if(dis1<td&&dis1!=0)
+  int td=18;
+  if(distanceFront<td&&distanceFront!=0)
   {
-    if(dis2>td||dis2==0)
+    if(distanceLeft>td||distanceLeft==0)
     return 'l';
-    else if(dis3>td||dis3==0)
+    else if(distanceRight>td||distanceRight==0)
     return 'r';
     else
     return 's';
@@ -137,7 +115,7 @@ char dist_empty()
 
 void loop() {
   // put your main code here, to run repeatedly:   
-    distanceLeft = getDistance(0);
+ /*   distanceLeft = getDistance(0);
     distanceRight = getDistance(1);
     distanceFront = getDistance(2);
 
@@ -173,5 +151,7 @@ void loop() {
     }
     
     Serial.println(cd);
-    delay(100);
+    delay(100);*/
+    forward();
+  
 }
