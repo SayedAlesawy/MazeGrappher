@@ -17,6 +17,10 @@ const int echoFront = A5;
 int distanceLeft = 0;
 int distanceRight = 0;
 int distanceFront = 0;
+
+
+int pwmSignalA = 50;
+int pwmSignalB = 82;
  
 NewPing sonarLeft(trigLeft, echoLeft, 100);
 NewPing sonarRight(trigRight, echoRight, 100);
@@ -54,8 +58,8 @@ int getDistance(int code)
 }
 
 void left() {
-  analogWrite(enA, 180); 
-  analogWrite(enB, 180);
+  analogWrite(enA, pwmSignalA); 
+  analogWrite(enB, pwmSignalB);
   digitalWrite(inA1, LOW);
   digitalWrite(inA2, HIGH);
   digitalWrite(inB1, HIGH);
@@ -63,8 +67,8 @@ void left() {
 }
 
 void right() {
-  analogWrite(enA, 180);
-  analogWrite(enB, 180);
+  analogWrite(enA, pwmSignalA);
+  analogWrite(enB, pwmSignalB);
   digitalWrite(inA1, HIGH);
   digitalWrite(inA2, LOW);
   digitalWrite(inB1, LOW);
@@ -72,20 +76,21 @@ void right() {
 }
 
 void forward() {
-  analogWrite(enA, 199);
-  analogWrite(enB, 200);
+  analogWrite(enA, pwmSignalA);
+  analogWrite(enB, pwmSignalB);
+  
   digitalWrite(inA1, LOW);
   digitalWrite(inA2, HIGH);
   digitalWrite(inB1, LOW);
   digitalWrite(inB2, HIGH);
 }
-/*
+
 void stoop()
 {
   analogWrite(enA, 0);
   analogWrite(enB, 0);
 }
-*/
+
 void setup() {
   // put your setup code here, to run once:
     pinMode(enA, OUTPUT);
@@ -100,33 +105,39 @@ void setup() {
 
 char dist_empty()
 {
-  int td=18;
-  if(distanceFront<td&&distanceFront!=0)
+  int d = 10;
+  if( distanceLeft < d && distanceLeft != 0 )
   {
-    if(distanceLeft>td||distanceLeft==0)
     return 'l';
-    else if(distanceRight>td||distanceRight==0)
-    return 'r';
-    else
-    return 's';
   }
-  return 'f';
+  if( distanceFront > d || distanceFront == 0 )
+  {
+    return 'f';
+  }
+  if( distanceRight > d || distanceRight == 0 )
+  {
+    return 'r';
+  }
 }
 
 void loop() {
   // put your main code here, to run repeatedly:   
- /*   distanceLeft = getDistance(0);
+   /* distanceLeft = getDistance(0);
     distanceRight = getDistance(1);
     distanceFront = getDistance(2);
 
-    char cd='f';
-    cd= dist_empty();
+    char cd = dist_empty();
+    
     switch(cd)
     { 
       case 'l':
       { 
         left();
         delay(420);
+        stoop();
+        delay(100);
+        forward();
+        delay(150);
         stoop();
         delay(100);
         break;
@@ -148,10 +159,14 @@ void loop() {
         break;
       }
       default: stoop();
-    }
+    }*/
     
-    Serial.println(cd);
-    delay(100);*/
+   // Serial.println(cd);
+   // delay(100);
+    //right();
+    //delay(3000);
+    //left();
+    //delay(3000);
     forward();
-  
+    delay(30);
 }

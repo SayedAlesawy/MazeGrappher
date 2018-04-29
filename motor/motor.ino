@@ -22,7 +22,8 @@ void setup() {
 }
 
 void loop() {
-    int pwmOutput = 150;
-    analogWrite(enA, pwmOutput); // Send PWM signal to L298N Enable pin
-    analogWrite(enB, pwmOutput); // Send PWM signal to L298N Enable pin
+    int pwmOutputA = 80;
+    int pwmOutputB = 110;
+    analogWrite(enA, pwmOutputA); // Send PWM signal to L298N Enable pin
+    analogWrite(enB, pwmOutputB); // Send PWM signal to L298N Enable pin
 }
