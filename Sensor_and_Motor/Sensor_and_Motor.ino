@@ -134,10 +134,7 @@ char dist_empty() {
 	{
 		return 'f';
 	}
-	if( distanceRight > df )
-	{
-		return 'r';
-	}
+  return 'r';
 }
 
 void loop() {
