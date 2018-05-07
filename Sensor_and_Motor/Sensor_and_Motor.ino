@@ -13,8 +13,8 @@ const int echoRight = A3;
 const int echoFront = A5;
 
 long distanceLeft, distanceRight, distanceFront;
-
-int pwmSignalA = 85;
+int cnt = 0;
+int pwmSignalA = 80;
 int pwmSignalB = 100;
  
 void get_distanceFront() {
@@ -124,13 +124,13 @@ void setup() {
 }
 
 char dist_empty() {
-	int d = 9;
-  int df = 10;
+	int d = 5;
+  int df = 7;
 	if( distanceLeft > df )
 	{
 		return 'l';
 	}
-	if( distanceFront > d )
+	if( distanceFront > d || distanceFront > (d+1)  )
 	{
 		return 'f';
 	}
@@ -138,6 +138,11 @@ char dist_empty() {
 }
 
 void loop() {
+  
+  if (cnt == 0){
+    delay(2000);
+    cnt++;
+  }
 	// put your main code here, to run repeatedly:   
 	get_distanceLeft();
 	get_distanceFront();
@@ -166,28 +171,29 @@ void loop() {
 		case 'f': 
 		{
 			forward();
-			delay(300);
+			delay(1450);
 			stoop();
 			delay(100);
 			break;
 		}
 		default: stoop();
 	}
-
-/*  Serial.print("DF: ");
+ 
+  Serial.print("DF: ");
   Serial.println(distanceFront);
 
-  delay(250);
+ // delay(250);
   
   Serial.print("DR: ");
   Serial.println(distanceRight);
   
-  delay(250);
+  //delay(250);
 
   Serial.print("DL: ");
   Serial.println(distanceLeft);
 
-  delay(250);
-*/
+  //delay(250);
+
 	Serial.println(cd);
+
 }
